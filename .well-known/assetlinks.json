@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.regionallkocfl_source.twa",
+        "sha256_cert_fingerprints": ["67:4F:E1:DC:DE:CC:31:A9:CB:03:EE:E1:DD:D4:11:DA:05:06:C6:35:94:C6:D5:29:E9:CB:4C:79:FE:4B:C9:40"]
+      }
+    }]
