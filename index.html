@@ -421,8 +421,23 @@ function requestLocationEarly_() {
 }
 
 function openLiveCamera_(inputId) {
-  if (locationStatus !== 'granted') requestLocationEarly_();
-  document.getElementById(inputId).click();
+  if (locationStatus === 'granted') {
+    document.getElementById(inputId).click();
+    return;
+  }
+  // Ask for (and wait on) location FIRST — the permission dialog gets a
+  // chance to show and resolve before the camera opens, instead of both
+  // happening at the same time.
+  updateLocStatus_('pending', '📍 Location permission maangi ja rahi hai...');
+  getLocation_(function (loc) {
+    if (loc) {
+      photoLocation = photoLocation || loc;
+      updateLocStatus_('granted', '✅ Location mil gayi — photo/selfie ab geotag honge.');
+    } else {
+      updateLocStatus_('denied', '⚠️ Location permission nahi mili. Browser address bar ke 🔒/ⓘ icon par tap karke "Location" ko "Allow" karein, phir page refresh karein.');
+    }
+    document.getElementById(inputId).click();
+  });
 }
 
 requestLocationEarly_();
